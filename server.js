@@ -1,23 +1,23 @@
 // server.js
-import express from "express";
-import fetch from "node-fetch";
-import cors from "cors";
+const express = require("express");
+const fetch = require("node-fetch"); // version 2.x uses require
+const cors = require("cors");
 
 const app = express();
 app.use(cors());
 
 const PORT = process.env.PORT || 3000;
 
-// Root route to check if backend is working
+// Root route to check if backend is running
 app.get("/", (req, res) => {
   res.send("✅ Odds backend is running successfully!");
 });
 
 // Endpoint to fetch odds from The Odds API
 app.get("/odds/:sport", async (req, res) => {
-  const sport = req.params.sport; // e.g., soccer_epl
+  const sport = req.params.sport;
   const region = "uk";
-  const market = "h2h"; // winner market
+  const market = "h2h";
   const apiKey = process.env.ODDS_API_KEY;
 
   const url = `https://api.the-odds-api.com/v4/sports/${sport}/odds/?apiKey=${apiKey}&regions=${region}&markets=${market}`;
